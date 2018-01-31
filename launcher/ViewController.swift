@@ -8,16 +8,12 @@
 
 import Cocoa
 
+protocol OpenWorkspaceDelegate {
+    func didOpenWorkspace()
+}
+
 class ViewController: NSViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        }
-    }
+    var delegate : OpenWorkspaceDelegate!
     
     @IBOutlet weak var chrome: NSButton!
     @IBOutlet weak var iTerm: NSButton!
@@ -28,6 +24,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var xcode: NSButton!
     
     @IBAction func openDevButtonClicked(_ sender: Any) {
+        delegate.didOpenWorkspace()
         open(applicationName: "Google Chrome", ifButtonOn: chrome)
         open(applicationName: "iTerm", ifButtonOn: iTerm)
         open(applicationName: "Sourcetree", ifButtonOn: sourcetree)
@@ -58,12 +55,11 @@ class ViewController: NSViewController {
 }
 
 extension ViewController {
-    static func freshController() -> ViewController {
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        let identifier = "ViewController"
-        guard let viewcontroller = storyboard.instantiateController(withIdentifier: identifier) as? ViewController else {
+    static func freshController(delegate: OpenWorkspaceDelegate) -> ViewController {
+        guard let viewcontroller = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "ViewController") as? ViewController else {
             fatalError("Why cant i find ViewController? - Check Main.storyboard")
         }
+        viewcontroller.delegate = delegate
         return viewcontroller
     }
 }

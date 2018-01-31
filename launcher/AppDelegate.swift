@@ -9,7 +9,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, OpenWorkspaceDelegate {
 
     let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
     let popover = NSPopover()
@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.image = NSImage(named:"StatusBarButtonImage")
             button.action = #selector(togglePopover(_:))
         }
-        popover.contentViewController = ViewController.freshController()
+        popover.contentViewController = ViewController.freshController(delegate: self)
 
     }
     
@@ -40,9 +40,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func closePopover(sender: Any?) {
         popover.performClose(sender)
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+    
+    func didOpenWorkspace() {
+        closePopover(sender: self)
     }
 
 }
