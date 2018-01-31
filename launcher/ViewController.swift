@@ -34,6 +34,10 @@ class ViewController: NSViewController {
         open(applicationName: "Xcode", ifButtonOn: xcode)
     }
     
+    @IBAction func quitButtonClicked(_ sender: Any) {
+        NSApp.terminate(self)
+    }
+    
     func open(applicationName : String, ifButtonOn button : NSButton) {
         if (button.state == NSOnState) {
             openApplication(applicationName: applicationName)
