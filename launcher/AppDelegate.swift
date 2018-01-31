@@ -15,12 +15,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, WorkspaceDelegate {
     let popover = NSPopover()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let userDefaults = NSUserDefaultsController.shared().defaults
+        
+        if (!userDefaults.bool(forKey: "initialized")) {
+            initialize(userDefaults: userDefaults)
+            userDefaults.setValue(true, forKey: "initialized")
+        }
+        
         if let button = statusItem.button {
             button.image = NSImage(named:"StatusBarButtonImage")
             button.action = #selector(togglePopover(_:))
         }
         popover.contentViewController = WorkspaceViewController.freshController(delegate: self)
-
     }
     
     @objc func togglePopover(_ sender: Any?) {
@@ -44,6 +50,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, WorkspaceDelegate {
     func didPerformAction() {
         closePopover(sender: self)
     }
-
+    
+    func initialize(userDefaults: UserDefaults) {
+        let settingsArray = [
+            ["applicationName" : "Google Chrome", "checked" : true],
+            ["applicationName" : "iTerm", "checked" : true],
+            ["applicationName" : "Sourcetree", "checked" : true],
+            ["applicationName" : "Sublime Text", "checked" : false],
+            ["applicationName" : "Android Studio", "checked" : false],
+            ["applicationName" : "IntelliJ IDEA CE", "checked" : false],
+            ["applicationName" : "Xcode", "checked" : false]
+        ]
+        userDefaults.setValue(settingsArray, forKey: "settingsArray")
+    }
 }
 

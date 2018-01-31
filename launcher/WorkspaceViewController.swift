@@ -15,23 +15,42 @@ protocol WorkspaceDelegate {
 class WorkspaceViewController: NSViewController {
     var delegate : WorkspaceDelegate!
     
-    @IBOutlet weak var chrome: NSButton!
-    @IBOutlet weak var iTerm: NSButton!
-    @IBOutlet weak var sourcetree: NSButton!
-    @IBOutlet weak var sublime: NSButton!
-    @IBOutlet weak var android: NSButton!
-    @IBOutlet weak var intelliJ: NSButton!
-    @IBOutlet weak var xcode: NSButton!
+    @IBOutlet weak var stackView: NSStackView!
+    var currentSettingsArray = [[String: Any?]]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let userDefaults = NSUserDefaultsController.shared().defaults;
+        if let settings = userDefaults.array(forKey: "settingsArray") as? [[String : Any?]] {
+            for (index, item) in settings.enumerated() {
+                let button = NSButton.init()
+                button.setButtonType(NSSwitchButton)
+                button.state = item["checked"] as! Bool ? NSOnState : NSOffState
+                button.title = item["applicationName"] as! String
+                button.tag = index
+                button.target = self
+                button.action = #selector(clickedCheckbox(_:))
+                stackView.addView(button, in: NSStackViewGravity.bottom)
+            }
+            currentSettingsArray = settings
+        }
+    }
+    
+    func clickedCheckbox(_ sender: NSButton) {
+        currentSettingsArray[sender.tag]["checked"] = !(currentSettingsArray[sender.tag]["checked"] as! Bool)
+    }
     
     @IBAction func openDevButtonClicked(_ sender: Any) {
+        currentSettingsArray.forEach { (item) in
+            if let checked = item["checked"] as? Bool,
+               let application = item["applicationName"] as? String {
+                if (checked) {
+                    openApplication(applicationName: application)
+                }
+            }
+        }
         delegate.didPerformAction()
-        open(applicationName: "Google Chrome", ifButtonOn: chrome)
-        open(applicationName: "iTerm", ifButtonOn: iTerm)
-        open(applicationName: "Sourcetree", ifButtonOn: sourcetree)
-        open(applicationName: "Sublime Text", ifButtonOn: sublime)
-        open(applicationName: "Android Studio", ifButtonOn: android)
-        open(applicationName: "IntelliJ IDEA CE", ifButtonOn: intelliJ)
-        open(applicationName: "Xcode", ifButtonOn: xcode)
     }
     
     @IBAction func settingsButtonClicked(_ sender: Any) {
@@ -39,11 +58,6 @@ class WorkspaceViewController: NSViewController {
         performSegue(withIdentifier: "showSettingsSegue", sender: self)
     }
     
-    func open(applicationName : String, ifButtonOn button : NSButton) {
-        if (button.state == NSOnState) {
-            openApplication(applicationName: applicationName)
-        }
-    }
     
     func openApplication(applicationName : String) {
         let path = "/Applications/" + applicationName + ".app"
