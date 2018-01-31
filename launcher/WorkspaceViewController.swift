@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  WorkspaceViewController.swift
 //  launcher
 //
 //  Created by Canna Wen on 2018-01-31.
@@ -8,12 +8,12 @@
 
 import Cocoa
 
-protocol OpenWorkspaceDelegate {
-    func didOpenWorkspace()
+protocol WorkspaceDelegate {
+    func didPerformAction()
 }
 
-class ViewController: NSViewController {
-    var delegate : OpenWorkspaceDelegate!
+class WorkspaceViewController: NSViewController {
+    var delegate : WorkspaceDelegate!
     
     @IBOutlet weak var chrome: NSButton!
     @IBOutlet weak var iTerm: NSButton!
@@ -24,7 +24,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var xcode: NSButton!
     
     @IBAction func openDevButtonClicked(_ sender: Any) {
-        delegate.didOpenWorkspace()
+        delegate.didPerformAction()
         open(applicationName: "Google Chrome", ifButtonOn: chrome)
         open(applicationName: "iTerm", ifButtonOn: iTerm)
         open(applicationName: "Sourcetree", ifButtonOn: sourcetree)
@@ -34,8 +34,9 @@ class ViewController: NSViewController {
         open(applicationName: "Xcode", ifButtonOn: xcode)
     }
     
-    @IBAction func quitButtonClicked(_ sender: Any) {
-        NSApp.terminate(self)
+    @IBAction func settingsButtonClicked(_ sender: Any) {
+        delegate.didPerformAction()
+        performSegue(withIdentifier: "showSettingsSegue", sender: self)
     }
     
     func open(applicationName : String, ifButtonOn button : NSButton) {
@@ -58,10 +59,11 @@ class ViewController: NSViewController {
     }
 }
 
-extension ViewController {
-    static func freshController(delegate: OpenWorkspaceDelegate) -> ViewController {
-        guard let viewcontroller = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "ViewController") as? ViewController else {
-            fatalError("Why cant i find ViewController? - Check Main.storyboard")
+extension WorkspaceViewController {
+    static func freshController(delegate: WorkspaceDelegate) -> WorkspaceViewController {
+        let mainStoryboard =  NSStoryboard(name: "Main", bundle: nil)
+        guard let viewcontroller = mainStoryboard.instantiateController(withIdentifier: "WorkspaceViewController") as? WorkspaceViewController else {
+            fatalError("Why can't I find WorkspaceViewController? - Check Main.storyboard")
         }
         viewcontroller.delegate = delegate
         return viewcontroller

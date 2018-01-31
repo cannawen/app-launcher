@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B03C080D20218AE40079A09F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03C080C20218AE40079A09F /* SettingsViewController.swift */; };
 		B0F82C18202167500063C4AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F82C17202167500063C4AA /* AppDelegate.swift */; };
-		B0F82C1A202167500063C4AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F82C19202167500063C4AA /* ViewController.swift */; };
+		B0F82C1A202167500063C4AA /* WorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F82C19202167500063C4AA /* WorkspaceViewController.swift */; };
 		B0F82C1C202167500063C4AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0F82C1B202167500063C4AA /* Assets.xcassets */; };
 		B0F82C1F202167500063C4AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0F82C1D202167500063C4AA /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B03C080C20218AE40079A09F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B0F82C14202167500063C4AA /* launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0F82C17202167500063C4AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B0F82C19202167500063C4AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B0F82C19202167500063C4AA /* WorkspaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceViewController.swift; sourceTree = "<group>"; };
 		B0F82C1B202167500063C4AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0F82C1E202167500063C4AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0F82C20202167500063C4AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -33,6 +35,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B03C080E20218D1E0079A09F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B0F82C19202167500063C4AA /* WorkspaceViewController.swift */,
+				B03C080C20218AE40079A09F /* SettingsViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		B03C080F20218D310079A09F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0F82C17202167500063C4AA /* AppDelegate.swift */,
+				B0F82C1B202167500063C4AA /* Assets.xcassets */,
+				B0F82C1D202167500063C4AA /* Main.storyboard */,
+				B0F82C20202167500063C4AA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		B0F82C0B202167500063C4AA = {
 			isa = PBXGroup;
 			children = (
@@ -52,11 +74,8 @@
 		B0F82C16202167500063C4AA /* launcher */ = {
 			isa = PBXGroup;
 			children = (
-				B0F82C17202167500063C4AA /* AppDelegate.swift */,
-				B0F82C19202167500063C4AA /* ViewController.swift */,
-				B0F82C1B202167500063C4AA /* Assets.xcassets */,
-				B0F82C1D202167500063C4AA /* Main.storyboard */,
-				B0F82C20202167500063C4AA /* Info.plist */,
+				B03C080E20218D1E0079A09F /* View Controllers */,
+				B03C080F20218D310079A09F /* Supporting Files */,
 			);
 			path = launcher;
 			sourceTree = "<group>";
@@ -132,8 +151,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0F82C1A202167500063C4AA /* ViewController.swift in Sources */,
+				B0F82C1A202167500063C4AA /* WorkspaceViewController.swift in Sources */,
 				B0F82C18202167500063C4AA /* AppDelegate.swift in Sources */,
+				B03C080D20218AE40079A09F /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +306,7 @@
 				B0F82C25202167500063C4AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
