@@ -12,13 +12,10 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
         }
     }
     
@@ -57,6 +54,17 @@ class ViewController: NSViewController {
         } catch {
             print("error")
         }
+    }
+}
+
+extension ViewController {
+    static func freshController() -> ViewController {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        let identifier = "ViewController"
+        guard let viewcontroller = storyboard.instantiateController(withIdentifier: identifier) as? ViewController else {
+            fatalError("Why cant i find ViewController? - Check Main.storyboard")
+        }
+        return viewcontroller
     }
 }
 
