@@ -41,16 +41,18 @@ class WorkspaceViewController: NSViewController {
     }
     
     @IBAction func openDevButtonClicked(_ sender: Any) {
+        delegate.didPerformAction()
+
         currentSettings.forEach { (setting) in
             if (setting.checked) {
                 openApplication(applicationName: setting.applicationName)
             }
         }
-        delegate.didPerformAction()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         delegate.didPerformAction()
+        
         if (segue.identifier == "showSettingsSegue") {
             if let destinationVc = segue.destinationController as? SettingsViewController {
                 destinationVc.settingsUtility = settingsUtility
