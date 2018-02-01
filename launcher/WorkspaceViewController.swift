@@ -22,7 +22,9 @@ class WorkspaceViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for (index, setting) in settingsUtility.settings().enumerated() {
+        currentSettings = settingsUtility.getSettings();
+        
+        for (index, setting) in currentSettings.enumerated() {
             let button = NSButton.init()
             button.setButtonType(NSSwitchButton)
             button.state = setting.checked ? NSOnState : NSOffState
@@ -78,7 +80,6 @@ extension WorkspaceViewController {
         }
         viewController.delegate = delegate
         viewController.settingsUtility = settingsUtility
-        viewController.currentSettings = settingsUtility.settings()
         return viewController
     }
 }

@@ -17,7 +17,7 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        settingsArray = settingsUtility.settings()
+        settingsArray = settingsUtility.getSettings()
         
         tableView.delegate = self;
         tableView.dataSource = self;
