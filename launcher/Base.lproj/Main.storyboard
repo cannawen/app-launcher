@@ -664,6 +664,7 @@
         <!--Window Controller-->
         <scene sceneID="k8D-OU-emt">
             <objects>
+                <customObject id="ivE-dw-uIE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController id="x34-gL-ewU" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="msf-dI-Wju">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -675,7 +676,6 @@
                         <segue destination="kob-6x-wip" kind="relationship" relationship="window.shadowedContentViewController" id="qtZ-Ki-S6s"/>
                     </connections>
                 </windowController>
-                <customObject id="ivE-dw-uIE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="288" y="215"/>
         </scene>
@@ -784,7 +784,7 @@
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="XNb-50-08Q">
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="XNb-50-08Q">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -851,7 +851,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="settingsButtonClicked:" target="XfG-lQ-9wD" id="LAA-cu-YZp"/>
+                                    <segue destination="kob-6x-wip" kind="show" identifier="showSettingsSegue" id="db0-fq-N9P"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -866,7 +866,6 @@
                     </view>
                     <connections>
                         <outlet property="stackView" destination="beX-yU-oB9" id="ppI-qA-sfW"/>
-                        <segue destination="x34-gL-ewU" kind="show" identifier="showSettingsSegue" id="8aP-Kk-1FH"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -877,4 +876,7 @@
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="qtZ-Ki-S6s"/>
+    </inferredMetricsTieBreakers>
 </document>

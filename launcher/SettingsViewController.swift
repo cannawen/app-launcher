@@ -9,21 +9,18 @@
 import Cocoa
 
 class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
-    
+    var settingsUtility: SettingsUtility!
+
     @IBOutlet weak var tableView: NSTableView!
-    var settingsArray = [[String: Any?]]()
+    var settingsArray : [SettingsUtility.Setting]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        settingsArray = settingsUtility.settings()
+        
         tableView.delegate = self;
         tableView.dataSource = self;
-        
-        let userDefaults = NSUserDefaultsController.shared().defaults;
-        if let settings = userDefaults.array(forKey: "settingsArray") as? [[String : Any?]] {
-            settingsArray = settings
-            tableView.reloadData()
-        }
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -35,16 +32,16 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let item = settingsArray[row]
+        let setting = settingsArray[row]
         
         if tableColumn == tableView.tableColumns[0] {
             if let cell = tableView.make(withIdentifier: "applicationName", owner: nil) as? NSTableCellView {
-                cell.textField?.stringValue = item["applicationName"] as! String
+                cell.textField?.stringValue = setting.applicationName
                 return cell
             }
         } else if tableColumn == tableView.tableColumns[1] {
             if let cell = tableView.make(withIdentifier: "checked", owner: nil) as? NSTableCellView {
-                cell.textField?.stringValue = item["checked"] as! Bool ? "true" : "false"
+                cell.textField?.stringValue = setting.checked ? "true" : "false"
                 return cell
             }
         }

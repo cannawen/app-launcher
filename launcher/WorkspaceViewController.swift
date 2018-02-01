@@ -14,50 +14,47 @@ protocol WorkspaceDelegate {
 
 class WorkspaceViewController: NSViewController {
     var delegate : WorkspaceDelegate!
+    var settingsUtility: SettingsUtility!
+    var currentSettings : [SettingsUtility.Setting]!
     
     @IBOutlet weak var stackView: NSStackView!
-    var currentSettingsArray = [[String: Any?]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let userDefaults = NSUserDefaultsController.shared().defaults;
-        if let settings = userDefaults.array(forKey: "settingsArray") as? [[String : Any?]] {
-            for (index, item) in settings.enumerated() {
-                let button = NSButton.init()
-                button.setButtonType(NSSwitchButton)
-                button.state = item["checked"] as! Bool ? NSOnState : NSOffState
-                button.title = item["applicationName"] as! String
-                button.tag = index
-                button.target = self
-                button.action = #selector(clickedCheckbox(_:))
-                stackView.addView(button, in: NSStackViewGravity.bottom)
-            }
-            currentSettingsArray = settings
+        for (index, setting) in settingsUtility.settings().enumerated() {
+            let button = NSButton.init()
+            button.setButtonType(NSSwitchButton)
+            button.state = setting.checked ? NSOnState : NSOffState
+            button.title = setting.applicationName
+            button.tag = index
+            button.target = self
+            button.action = #selector(clickedCheckbox(_:))
+            stackView.addView(button, in: NSStackViewGravity.bottom)
         }
     }
     
     func clickedCheckbox(_ sender: NSButton) {
-        currentSettingsArray[sender.tag]["checked"] = !(currentSettingsArray[sender.tag]["checked"] as! Bool)
+        currentSettings[sender.tag].toggleChecked()
     }
     
     @IBAction func openDevButtonClicked(_ sender: Any) {
-        currentSettingsArray.forEach { (item) in
-            if let checked = item["checked"] as? Bool,
-               let application = item["applicationName"] as? String {
-                if (checked) {
-                    openApplication(applicationName: application)
-                }
+        currentSettings.forEach { (setting) in
+            if (setting.checked) {
+                openApplication(applicationName: setting.applicationName)
             }
         }
         delegate.didPerformAction()
     }
     
-    @IBAction func settingsButtonClicked(_ sender: Any) {
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         delegate.didPerformAction()
-        performSegue(withIdentifier: "showSettingsSegue", sender: self)
+        if (segue.identifier == "showSettingsSegue") {
+            if let destinationVc = segue.destinationController as? SettingsViewController {
+                destinationVc.settingsUtility = settingsUtility
+            }
+        }
     }
-    
     
     func openApplication(applicationName : String) {
         let path = "/Applications/" + applicationName + ".app"
@@ -74,13 +71,15 @@ class WorkspaceViewController: NSViewController {
 }
 
 extension WorkspaceViewController {
-    static func freshController(delegate: WorkspaceDelegate) -> WorkspaceViewController {
+    static func freshController(delegate: WorkspaceDelegate, settingsUtility: SettingsUtility) -> WorkspaceViewController {
         let mainStoryboard =  NSStoryboard(name: "Main", bundle: nil)
-        guard let viewcontroller = mainStoryboard.instantiateController(withIdentifier: "WorkspaceViewController") as? WorkspaceViewController else {
+        guard let viewController = mainStoryboard.instantiateController(withIdentifier: "WorkspaceViewController") as? WorkspaceViewController else {
             fatalError("Why can't I find WorkspaceViewController? - Check Main.storyboard")
         }
-        viewcontroller.delegate = delegate
-        return viewcontroller
+        viewController.delegate = delegate
+        viewController.settingsUtility = settingsUtility
+        viewController.currentSettings = settingsUtility.settings()
+        return viewController
     }
 }
 
