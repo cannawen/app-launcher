@@ -27,7 +27,7 @@ struct SettingsUtility {
     
     private func preferencesFileUrl() -> URL {
         let documentsUrl = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        return documentsUrl.appendingPathComponent(".app-launcher-preferences.txt")
+        return documentsUrl.appendingPathComponent(".app-launcher-preferences.json")
     }
     
     private func hasSavedSettings() -> Bool {
