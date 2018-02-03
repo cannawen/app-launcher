@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -671,6 +671,9 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="163" y="199" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+                        <connections>
+                            <outlet property="delegate" destination="x34-gL-ewU" id="aB5-bl-WqW"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="kob-6x-wip" kind="relationship" relationship="window.shadowedContentViewController" id="qtZ-Ki-S6s"/>
@@ -710,7 +713,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="116" minWidth="40" maxWidth="1000" id="dWD-lB-nba">
+                                                <tableColumn identifier="" width="116" minWidth="40" maxWidth="1000" id="dWD-lB-nba">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Application Name">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -727,7 +730,7 @@
                                                             <rect key="frame" x="1" y="1" width="116" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDS-rc-Ldr">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDS-rc-Ldr">
                                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="fmG-md-pRE">
@@ -743,7 +746,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn width="242" minWidth="40" maxWidth="1000" id="tFB-xl-pMy">
+                                                <tableColumn identifier="" width="242" minWidth="40" maxWidth="1000" id="tFB-xl-pMy">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Checked by Default">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -760,7 +763,7 @@
                                                             <rect key="frame" x="120" y="1" width="242" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bod-Hv-FFR">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bod-Hv-FFR">
                                                                     <rect key="frame" x="0.0" y="0.0" width="242" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="QbR-Sb-UoZ">
@@ -816,11 +819,31 @@
             <objects>
                 <viewController identifier="WorkspaceViewController" storyboardIdentifier="WorkspaceViewController" id="XfG-lQ-9wD" customClass="WorkspaceViewController" customModule="launcher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="149" height="215"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KvD-8w-wZe">
+                                <rect key="frame" x="14" y="252" width="84" height="32"/>
+                                <buttonCell key="cell" type="push" title="Quit All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Zaa-8q-FJZ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="quitAllButtonClicked:" target="XfG-lQ-9wD" id="skn-ow-HLf"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5g6-nC-Vu9">
+                                <rect key="frame" x="118" y="274" width="32" height="16"/>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSAdvanced" imagePosition="only" alignment="center" controlSize="mini" imageScaling="proportionallyDown" inset="2" id="P4j-xm-4jO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="miniSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <segue destination="kob-6x-wip" kind="show" identifier="showSettingsSegue" id="db0-fq-N9P"/>
+                                </connections>
+                            </button>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="beX-yU-oB9">
-                                <rect key="frame" x="20" y="174" width="61" height="21"/>
+                                <rect key="frame" x="20" y="233" width="61" height="21"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iZ9-kv-MF3">
                                         <rect key="frame" x="-6" y="-7" width="73" height="32"/>
@@ -840,26 +863,15 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5g6-nC-Vu9">
-                                <rect key="frame" x="119" y="185" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="AVz-ox-mAN"/>
-                                    <constraint firstAttribute="width" constant="20" id="XNU-xy-sfq"/>
-                                </constraints>
-                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSAdvanced" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="P4j-xm-4jO">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <segue destination="kob-6x-wip" kind="show" identifier="showSettingsSegue" id="db0-fq-N9P"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="5g6-nC-Vu9" secondAttribute="trailing" constant="10" id="TtO-wY-2NV"/>
+                            <constraint firstItem="KvD-8w-wZe" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="3b2-Z0-c6Q"/>
+                            <constraint firstItem="beX-yU-oB9" firstAttribute="top" secondItem="KvD-8w-wZe" secondAttribute="bottom" constant="5" id="9vu-NK-DEi"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KvD-8w-wZe" secondAttribute="trailing" constant="20" id="Rsi-XT-kd1"/>
+                            <constraint firstItem="KvD-8w-wZe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Sei-Cd-D5f"/>
+                            <constraint firstAttribute="trailing" secondItem="5g6-nC-Vu9" secondAttribute="trailing" id="TtO-wY-2NV"/>
                             <constraint firstItem="beX-yU-oB9" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="WaJ-xE-Aeq"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="beX-yU-oB9" secondAttribute="trailing" constant="20" id="YqB-E4-O6P"/>
-                            <constraint firstItem="beX-yU-oB9" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="eWo-3A-5zv"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="beX-yU-oB9" secondAttribute="bottom" constant="20" id="v3B-F3-JTW"/>
                             <constraint firstItem="5g6-nC-Vu9" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="10" id="zdb-CV-a4D"/>
                         </constraints>
@@ -870,13 +882,13 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-168" y="207"/>
+            <point key="canvasLocation" x="-168" y="249"/>
         </scene>
     </scenes>
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qtZ-Ki-S6s"/>
+        <segue reference="db0-fq-N9P"/>
     </inferredMetricsTieBreakers>
 </document>

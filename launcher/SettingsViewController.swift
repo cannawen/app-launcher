@@ -35,12 +35,12 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
         let setting = settingsArray[row]
         
         if tableColumn == tableView.tableColumns[0] {
-            if let cell = tableView.make(withIdentifier: "applicationName", owner: nil) as? NSTableCellView {
+            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "applicationName"), owner: nil) as? NSTableCellView {
                 cell.textField?.stringValue = setting.applicationName
                 return cell
             }
         } else if tableColumn == tableView.tableColumns[1] {
-            if let cell = tableView.make(withIdentifier: "checked", owner: nil) as? NSTableCellView {
+            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "checked"), owner: nil) as? NSTableCellView {
                 cell.textField?.stringValue = setting.checked ? "true" : "false"
                 return cell
             }

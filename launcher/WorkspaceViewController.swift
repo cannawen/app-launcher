@@ -26,18 +26,23 @@ class WorkspaceViewController: NSViewController {
         
         for (index, setting) in currentSettings.enumerated() {
             let button = NSButton.init()
-            button.setButtonType(NSSwitchButton)
-            button.state = setting.checked ? NSOnState : NSOffState
+            button.setButtonType(.switch)
+            button.state = setting.checked ? .on : .off
             button.title = setting.applicationName
             button.tag = index
             button.target = self
             button.action = #selector(clickedCheckbox(_:))
-            stackView.addView(button, in: NSStackViewGravity.bottom)
+            stackView.addView(button, in: NSStackView.Gravity.bottom)
         }
     }
     
-    func clickedCheckbox(_ sender: NSButton) {
+    @objc func clickedCheckbox(_ sender: NSButton) {
         currentSettings[sender.tag].toggleChecked()
+    }
+    
+    @IBAction func quitAllButtonClicked(_ sender: Any) {
+        delegate.didPerformAction()
+        openApplication(applicationName: "Quit All")
     }
     
     @IBAction func openDevButtonClicked(_ sender: Any) {
@@ -53,7 +58,8 @@ class WorkspaceViewController: NSViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         delegate.didPerformAction()
         
-        if (segue.identifier == "showSettingsSegue") {
+        
+        if (segue.identifier?.rawValue == "showSettingsSegue") {
             if let destinationVc = segue.destinationController as? SettingsViewController {
                 destinationVc.settingsUtility = settingsUtility
             }
@@ -65,8 +71,8 @@ class WorkspaceViewController: NSViewController {
         let url = URL.init(fileURLWithPath: path, isDirectory: false)
         
         do {
-            try NSWorkspace.shared().launchApplication(at: url,
-                                                       options: NSWorkspaceLaunchOptions.withoutActivation,
+            try NSWorkspace.shared.launchApplication(at: url,
+                                                       options: NSWorkspace.LaunchOptions.withoutActivation,
                                                        configuration: [:])
         } catch {
             print("error")
@@ -76,8 +82,8 @@ class WorkspaceViewController: NSViewController {
 
 extension WorkspaceViewController {
     static func freshController(delegate: WorkspaceDelegate, settingsUtility: SettingsUtility) -> WorkspaceViewController {
-        let mainStoryboard =  NSStoryboard(name: "Main", bundle: nil)
-        guard let viewController = mainStoryboard.instantiateController(withIdentifier: "WorkspaceViewController") as? WorkspaceViewController else {
+        let mainStoryboard =  NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        guard let viewController = mainStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "WorkspaceViewController")) as? WorkspaceViewController else {
             fatalError("Why can't I find WorkspaceViewController? - Check Main.storyboard")
         }
         viewController.delegate = delegate

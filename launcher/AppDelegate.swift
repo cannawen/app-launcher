@@ -12,12 +12,12 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate, WorkspaceDelegate {
 
     let settingsUtility = SettingsUtility.init()
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     let popover = NSPopover()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
-            button.image = NSImage(named:"StatusBarButtonImage")
+            button.image = NSImage(named:NSImage.Name(rawValue: "StatusBarButtonImage"))
             button.action = #selector(togglePopover(_:))
         }
         popover.contentViewController = WorkspaceViewController.freshController(delegate: self, settingsUtility: settingsUtility)
