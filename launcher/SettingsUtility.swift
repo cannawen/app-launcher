@@ -21,7 +21,7 @@ struct SettingsUtility {
                 SettingModel.init(applicationName: "IntelliJ IDEA CE", checked : false),
                 SettingModel.init(applicationName: "Xcode", checked : false)
             ]
-            save(settings: settingsArray)
+            save(settings: PanelModel.init(settings: settingsArray))
         }
     }
     
@@ -34,12 +34,12 @@ struct SettingsUtility {
         return FileManager.default.fileExists(atPath: preferencesFileUrl().path)
     }
     
-    private func save(settings: [SettingModel]) {
-        try! SettingModel.toJson(settings: settings).write(to: preferencesFileUrl(), atomically: true, encoding: String.Encoding.utf8)
+    private func save(settings: PanelModel) {
+        try! settings.toJson().write(to: preferencesFileUrl(), atomically: true, encoding: String.Encoding.utf8)
     }
     
-    func getSettings() -> [SettingModel] {
+    func getSettings() -> PanelModel {
         let jsonString = try! String(contentsOf: preferencesFileUrl(), encoding: .utf8)
-        return SettingModel.from(jsonString: jsonString)
+        return PanelModel.init(settings: SettingModel.from(jsonString: jsonString))
     }
 }

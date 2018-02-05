@@ -15,16 +15,16 @@ protocol WorkspaceDelegate {
 class WorkspaceViewController: NSViewController {
     var delegate : WorkspaceDelegate!
     var settingsUtility: SettingsUtility!
-    var currentSettings : [SettingModel]!
+    var currentPanel : PanelModel!
     
     @IBOutlet weak var stackView: NSStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currentSettings = settingsUtility.getSettings();
+        currentPanel = settingsUtility.getSettings();
         
-        for (index, setting) in currentSettings.enumerated() {
+        for (index, setting) in currentPanel.enumerated() {
             let button = NSButton.init()
             button.setButtonType(.switch)
             button.state = setting.checked ? .on : .off
@@ -37,7 +37,7 @@ class WorkspaceViewController: NSViewController {
     }
     
     @objc func clickedCheckbox(_ sender: NSButton) {
-        currentSettings[sender.tag].toggleChecked()
+        currentPanel = currentPanel.toggleSetting(atIndex: sender.tag)
     }
     
     @IBAction func quitAllButtonClicked(_ sender: Any) {
@@ -48,7 +48,7 @@ class WorkspaceViewController: NSViewController {
     @IBAction func openDevButtonClicked(_ sender: Any) {
         delegate.didPerformAction()
         
-        currentSettings.forEach { (setting) in
+        currentPanel.forEach { (setting) in
             if (setting.checked) {
                 openApplication(applicationName: setting.applicationName)
             }

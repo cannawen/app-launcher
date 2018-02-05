@@ -12,7 +12,7 @@ class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     var settingsUtility: SettingsUtility!
     
     @IBOutlet weak var tableView: NSTableView!
-    var settingsArray : [SettingModel]!
+    var settingsArray : PanelModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

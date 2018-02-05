@@ -29,10 +29,6 @@ struct SettingModel {
         self.checked = checked
     }
     
-    mutating func toggleChecked() {
-        checked = !checked;
-    }
-    
     static func toJson(settings : [SettingModel]) -> String {
         let array = settings.map { (setting) -> [String : Any] in
             return [SettingModel.ApplicationNameKey : setting.applicationName,
