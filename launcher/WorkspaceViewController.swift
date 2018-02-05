@@ -15,7 +15,7 @@ protocol WorkspaceDelegate {
 class WorkspaceViewController: NSViewController {
     var delegate : WorkspaceDelegate!
     var settingsUtility: SettingsUtility!
-    var currentSettings : [SettingsUtility.Setting]!
+    var currentSettings : [SettingModel]!
     
     @IBOutlet weak var stackView: NSStackView!
     
@@ -47,7 +47,7 @@ class WorkspaceViewController: NSViewController {
     
     @IBAction func openDevButtonClicked(_ sender: Any) {
         delegate.didPerformAction()
-
+        
         currentSettings.forEach { (setting) in
             if (setting.checked) {
                 openApplication(applicationName: setting.applicationName)
@@ -72,8 +72,8 @@ class WorkspaceViewController: NSViewController {
         
         do {
             try NSWorkspace.shared.launchApplication(at: url,
-                                                       options: NSWorkspace.LaunchOptions.withoutActivation,
-                                                       configuration: [:])
+                                                     options: NSWorkspace.LaunchOptions.withoutActivation,
+                                                     configuration: [:])
         } catch {
             print("error")
         }

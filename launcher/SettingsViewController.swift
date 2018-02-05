@@ -10,9 +10,9 @@ import Cocoa
 
 class SettingsViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     var settingsUtility: SettingsUtility!
-
+    
     @IBOutlet weak var tableView: NSTableView!
-    var settingsArray : [SettingsUtility.Setting]!
+    var settingsArray : [SettingModel]!
     
     override func viewDidLoad() {
         super.viewDidLoad()

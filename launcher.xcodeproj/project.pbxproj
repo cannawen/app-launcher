@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B015E3A020285E7600A03482 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B015E39F20285E7600A03482 /* SettingModel.swift */; };
 		B03C080D20218AE40079A09F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03C080C20218AE40079A09F /* SettingsViewController.swift */; };
 		B07B42B42021C7CB009C7284 /* SettingsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07B42B32021C7CB009C7284 /* SettingsUtility.swift */; };
 		B0F82C18202167500063C4AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F82C17202167500063C4AA /* AppDelegate.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B015E39F20285E7600A03482 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 		B03C080C20218AE40079A09F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B07B42B32021C7CB009C7284 /* SettingsUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsUtility.swift; sourceTree = "<group>"; };
 		B0F82C14202167500063C4AA /* launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,6 +39,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B015E39E20285E0B00A03482 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B015E39F20285E7600A03482 /* SettingModel.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		B03C080E20218D1E0079A09F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,8 +94,9 @@
 		B0F82C16202167500063C4AA /* launcher */ = {
 			isa = PBXGroup;
 			children = (
-				B07B42B22021C7B7009C7284 /* Utility */,
 				B03C080E20218D1E0079A09F /* View Controllers */,
+				B015E39E20285E0B00A03482 /* Models */,
+				B07B42B22021C7B7009C7284 /* Utility */,
 				B03C080F20218D310079A09F /* Supporting Files */,
 			);
 			path = launcher;
@@ -166,6 +177,7 @@
 				B0F82C1A202167500063C4AA /* WorkspaceViewController.swift in Sources */,
 				B07B42B42021C7CB009C7284 /* SettingsUtility.swift in Sources */,
 				B0F82C18202167500063C4AA /* AppDelegate.swift in Sources */,
+				B015E3A020285E7600A03482 /* SettingModel.swift in Sources */,
 				B03C080D20218AE40079A09F /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
